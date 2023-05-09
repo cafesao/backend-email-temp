@@ -1,0 +1,29 @@
+Resources:
+  DynamoDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: 'to'
+          AttributeType: 'S'
+        - AttributeName: 'sha256'
+          AttributeType: 'S'
+      KeySchema:
+        - AttributeName: 'to'
+          KeyType: 'HASH'
+        - AttributeName: 'sha256'
+          KeyType: 'RANGE'
+      ProvisionedThroughput:
+        ReadCapacityUnits: 2
+        WriteCapacityUnits: 2
+      TableName: temp-email
+
+Outputs:
+  DynamoDBTable:
+    Value: !Ref DynamoDBTable
+    Export:
+      Name: temp-email-table
+
+  DynamoDBTableArn:
+    Value: !GetAtt DynamoDBTable.Arn
+    Export:
+      Name: temp-email-tableArn

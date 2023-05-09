@@ -1,0 +1,49 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  Lambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: temp-email-lambda
+      Handler: index.handler
+      Runtime: nodejs16.x
+      Description: ''
+      Timeout: 10
+      MemorySize: 256
+      Role:
+        'Fn::ImportValue': temp-email-ArnRole
+      CodeUri:
+        Bucket:
+          'Fn::ImportValue': temp-email-lambda-s3-bucket-name
+        Key: lambda.zip
+      Environment:
+        Variables:
+          JWT_SECRET: '{{resolve:ssm:/LAMBDA/us-east-1/temp-email/JWT_SECRET:1}}'
+          TABLE_NAME:
+            'Fn::ImportValue': temp-email-table
+      FunctionUrlConfig:
+        AuthType: NONE
+        Cors:
+          AllowMethods:
+            - POST
+            - GET
+          AllowOrigins:
+            - '*'
+
+  LogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub '/aws/lambda/${Lambda}'
+      RetentionInDays: 1
+
+Outputs:
+  LambdaName:
+    Value: !Ref Lambda
+    Export:
+      Name: temp-email-LambdaName
+
+  LambdaArn:
+    Value: !GetAtt Lambda.Arn
+    Export:
+      Name: temp-email-LambdaArn

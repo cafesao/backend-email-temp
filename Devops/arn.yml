@@ -1,0 +1,42 @@
+Resources:
+  ArnRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Policies:
+        - PolicyName: root
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:ConditionCheckItem
+                  - dynamodb:DeleteItem
+                  - dynamodb:DeleteTable
+                  - dynamodb:DescribeTable
+                  - dynamodb:GetItem
+                  - dynamodb:ListTables
+                  - dynamodb:PutItem
+                  - dynamodb:Query
+                  - dynamodb:Scan
+                  - dynamodb:UpdateItem
+                Resource: arn:aws:dynamodb:us-east-1:326611364316:table/temp-email
+              - Effect: Allow
+                Action: logs:*
+                Resource: '*'
+      Path: '/'
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      RoleName: !Sub temp-email-arn-role-lambda
+
+Outputs:
+  ArnRole:
+    Value: !GetAtt ArnRole.Arn
+    Export:
+      Name: temp-email-ArnRole
