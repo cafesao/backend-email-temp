@@ -23,7 +23,10 @@ const controllerDB = {
   },
   create: async (data: any) => {
     try {
-      const debug = await DBEmail.create(data)
+      const debug = await DBEmail.create({
+        ...data,
+        ttl: Math.floor(Date.now() / 1000),
+      })
       console.log(debug)
       log.info(`Created in Table Email`)
       return true

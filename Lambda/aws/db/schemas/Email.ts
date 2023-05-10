@@ -22,6 +22,10 @@ const EmailSchema = new Schema({
     type: String,
     required: false,
   },
+  ttl: {
+    type: Number,
+    required: true,
+  },
 })
 
 export default EmailSchema
