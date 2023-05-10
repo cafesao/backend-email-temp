@@ -30,6 +30,10 @@ Resources:
             - GET
           AllowOrigins:
             - '*'
+          AllowHeaders:
+            - '*'
+          ExposeHeaders:
+            - '*'
 
   LogGroup:
     Type: AWS::Logs::LogGroup
