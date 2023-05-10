@@ -70,7 +70,7 @@ const controller = {
         }),
       )
       if (!data) {
-        return messages.error(400, 'Not found')
+        return messages.error(404, 'Not found')
       }
       return messages.success(data)
     } catch (error: any) {
