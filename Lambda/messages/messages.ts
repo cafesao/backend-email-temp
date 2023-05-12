@@ -8,6 +8,13 @@ const messages = {
     }
   },
 
+  custom(statusCode: number, payload: string | object): APIGatewayProxyResult {
+    return {
+      statusCode: statusCode,
+      body: JSON.stringify(payload),
+    }
+  },
+
   errorNotBody(): APIGatewayProxyResult {
     return {
       statusCode: 400,

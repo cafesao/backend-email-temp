@@ -1,5 +1,5 @@
 Resources:
-  DynamoDBTable:
+  TableTempEmail:
     Type: AWS::DynamoDB::Table
     Properties:
       AttributeDefinitions:
@@ -20,13 +20,38 @@ Resources:
         AttributeName: ttl
         Enabled: true
 
+  TableTempEmailSha256:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: 'to'
+          AttributeType: 'S'
+      KeySchema:
+        - AttributeName: 'to'
+          KeyType: 'HASH'
+      ProvisionedThroughput:
+        ReadCapacityUnits: 2
+        WriteCapacityUnits: 2
+      TableName: temp-email-sha256
+      TimeToLiveSpecification:
+        AttributeName: ttl
+        Enabled: true
+
 Outputs:
-  DynamoDBTable:
-    Value: !Ref DynamoDBTable
+  TableTempEmail:
+    Value: !Ref TableTempEmail
     Export:
       Name: temp-email-table
+  TableTempEmailSha256:
+    Value: !Ref TableTempEmailSha256
+    Export:
+      Name: temp-email-table-sha256
 
-  DynamoDBTableArn:
-    Value: !GetAtt DynamoDBTable.Arn
+  TableTempEmailArn:
+    Value: !GetAtt TableTempEmail.Arn
     Export:
       Name: temp-email-tableArn
+  TableTempEmailSha256Arn:
+    Value: !GetAtt TableTempEmailSha256.Arn
+    Export:
+      Name: temp-email-table-sha256-arn

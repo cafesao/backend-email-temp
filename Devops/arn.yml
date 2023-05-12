@@ -19,7 +19,9 @@ Resources:
                   - dynamodb:Query
                   - dynamodb:Scan
                   - dynamodb:UpdateItem
-                Resource: arn:aws:dynamodb:us-east-1:326611364316:table/temp-email
+                Resource:
+                  - arn:aws:dynamodb:us-east-1:326611364316:table/temp-email
+                  - arn:aws:dynamodb:us-east-1:326611364316:table/temp-email-sha256
               - Effect: Allow
                 Action: logs:*
                 Resource: '*'

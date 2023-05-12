@@ -22,6 +22,8 @@ Resources:
           JWT_SECRET: '{{resolve:ssm:/LAMBDA/us-east-1/temp-email/JWT_SECRET:1}}'
           TABLE_NAME:
             'Fn::ImportValue': temp-email-table
+          TABLE_NAME_SHA256:
+            'Fn::ImportValue': temp-email-table-sha256
       FunctionUrlConfig:
         AuthType: NONE
         Cors:

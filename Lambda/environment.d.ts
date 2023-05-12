@@ -3,6 +3,7 @@ declare global {
     interface ProcessEnv {
       JWT_SECRET: string
       TABLE_NAME: string
+      TABLE_NAME_SHA256: string
     }
   }
 }
