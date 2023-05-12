@@ -9,7 +9,7 @@ const controllerDB = {
   get: async (condition: Condition) => {
     try {
       const data = await DBEmail.query(condition)
-        .attributes(['to', 'from', 'subject', 'html'])
+        .attributes(['to', 'from', 'subject', 'html', 'ttl'])
         .exec()
       if (!data) return false
       log.info(`I take the data from the Table Email`)
