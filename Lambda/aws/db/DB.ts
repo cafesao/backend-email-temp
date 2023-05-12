@@ -52,7 +52,7 @@ const controllerDB = {
   },
   createSha256: async (data: any) => {
     try {
-      await DBSha256.create({
+      await DBSha256.update({
         ...data,
         ttl: Math.floor(Date.now() / 1000),
       })
