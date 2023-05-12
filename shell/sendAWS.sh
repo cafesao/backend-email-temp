@@ -28,6 +28,8 @@ aws s3 cp ./Lambda/lambda.zip s3://${S3_NAME}/lambda.zip --profile pessoal
 # Sync S3 Lib
 aws s3 cp ./Lambda/lib.zip s3://${S3_NAME}/lib.zip --profile pessoal
 
+# Deploy Lambda
+sh ./shell/deployLambda.sh
 
 # Get Name Lambda
 export LAMBDA_FUNCTION_NAME=$(aws --region us-east-1 cloudformation describe-stacks --stack-name temp-email-lambda --query "Stacks[].Outputs[?OutputKey=='LambdaName'].OutputValue" --profile pessoal --no-cli-pager --output text)

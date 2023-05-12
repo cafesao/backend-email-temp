@@ -11,10 +11,6 @@ aws cloudformation validate-template --template-body file://./Devops/s3.yml \
     --profile pessoal \
     --no-cli-pager
 
-aws cloudformation validate-template --template-body file://./Devops/lambda.yml \
-    --profile pessoal \
-    --no-cli-pager
-
 aws cloudformation validate-template --template-body file://./Devops/dynamodb.yml \
     --profile pessoal \
     --no-cli-pager
@@ -48,11 +44,4 @@ aws cloudformation deploy --template-file './Devops/dynamodb.yml' \
 
 echo 'Deploy DynamoDB Complete'
 
-echo 'Deploy Lambda...'
-aws cloudformation deploy --template-file './Devops/lambda.yml' \
-    --stack-name 'temp-email-lambda' \
-    --profile pessoal \
-    --no-cli-pager \
-    --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM
 
-echo 'Deploy Lambda Complete'
